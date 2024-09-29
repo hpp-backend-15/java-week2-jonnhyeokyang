@@ -26,10 +26,10 @@ public class LectureTest {
         UserId userId = new UserId(1L);
 
         //when
-        boolean joinResult = lecture.join(userId);
+        lecture.join(userId);
 
         //then
-        assertThat(joinResult).isTrue();
+        assertThat(lecture.getStudentIds()).isNotEmpty();
     }
 
     @Test
@@ -78,4 +78,30 @@ public class LectureTest {
 
     }
 
+    @Test
+    void 유저가수강신청했다면_신청여부는_참이다() throws Exception {
+        //given
+        UserId userId = new UserId(1L);
+
+        //when
+        lecture.join(userId);
+        boolean hasUser = lecture.hasUserOf(userId);
+
+        //then
+        assertThat(hasUser).isTrue();
+
+    }
+
+    @Test
+    void 유저가수강신청하지않았다면_신청여부는_거짓이다() throws Exception {
+        //given
+        UserId userId = new UserId(1L);
+
+        //when
+        boolean hasUser = lecture.hasUserOf(userId);
+
+        //then
+        assertThat(hasUser).isFalse();
+
+    }
 }

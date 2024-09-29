@@ -6,6 +6,7 @@ import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
@@ -24,6 +25,7 @@ public class Lecture {
 
     private LocalDate lecturingDate;
 
+    @Getter
     @ElementCollection
     private final List<UserId> studentIds = new ArrayList<>();
 
@@ -33,8 +35,8 @@ public class Lecture {
                 .build();
     }
 
-    public boolean join(UserId userId) {
-        if(LocalDate.now().isAfter(lecturingDate)) {
+    public void join(UserId userId) {
+        if (LocalDate.now().isAfter(lecturingDate)) {
             throw new IllegalStateException("이미 종료된 강좌를 수강할 수 없습니다.");
         }
         if (studentIds.size() >= 30) {
@@ -44,6 +46,9 @@ public class Lecture {
             throw new IllegalStateException("중복 강좌를 수강할 수 없습니다.");
         }
         studentIds.add(userId);
-        return true;
+    }
+
+    public boolean hasUserOf(UserId userId) {
+        return studentIds.contains(userId);
     }
 }
