@@ -1,4 +1,4 @@
-package com.hhplus.course.lecture;
+package com.hhplus.course.lecture.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

@@ -1,4 +1,4 @@
-package com.hhplus.course.lecture;
+package com.hhplus.course.lecture.domain;
 
 import com.hhplus.course.user.UserId;
 import jakarta.persistence.ElementCollection;
