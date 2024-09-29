@@ -1,21 +1,23 @@
 package com.hhplus.course.user;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.Entity;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.springframework.data.relational.core.mapping.Table;
+import lombok.*;
+
+import java.io.Serializable;
 
 import static lombok.AccessLevel.*;
 
 @Embeddable
-@NoArgsConstructor(access = PROTECTED, force = true)
-public class UserId {
-    private final Long value;
+@Getter
+@EqualsAndHashCode
+@NoArgsConstructor(access = PROTECTED)
+@AllArgsConstructor
+public class UserId implements Serializable {
+    @Column(name = "users_id")
+    String id;
 
-    public UserId(Long value) {
-        this.value = value;
-    }
+    public static UserId of(String id) {
+        return new UserId(id);}
 
 }
