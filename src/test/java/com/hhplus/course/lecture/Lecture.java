@@ -2,6 +2,7 @@ package com.hhplus.course.lecture;
 
 import com.hhplus.course.user.UserId;
 import jakarta.persistence.ElementCollection;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,8 +19,8 @@ import static lombok.AccessLevel.PROTECTED;
 @AllArgsConstructor
 @Builder
 public class Lecture {
-//    @EmbeddedId
-//    private LectureId id;
+    @EmbeddedId
+    private LectureId id;
 
     private LocalDate lecturingDate;
 

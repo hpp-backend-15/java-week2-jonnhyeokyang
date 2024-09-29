@@ -16,7 +16,7 @@ public class LectureTest {
 
     @BeforeEach
     void setUp() {
-        lecture = new Lecture(LocalDate.now().plusMonths(1));
+        lecture = new Lecture(LectureId.of("1"), LocalDate.now().plusMonths(1));
     }
 
 
