@@ -1,4 +1,4 @@
-package com.hhplus.course.lecture.infra;
+package com.hhplus.course.lecture.infra.repository;
 
 import com.hhplus.course.lecture.domain.Lecture;
 import com.hhplus.course.lecture.domain.LectureId;
