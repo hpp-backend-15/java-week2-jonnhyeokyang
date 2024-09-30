@@ -15,4 +15,9 @@ public class MemoryLectureRepository implements LectureRepository {
     public Optional<Lecture> findById(LectureId lectureId) {
         return Optional.ofNullable(map.get(lectureId));
     }
+
+    @Override
+    public Lecture save(Lecture lecture) {
+        return lecture;
+    }
 }

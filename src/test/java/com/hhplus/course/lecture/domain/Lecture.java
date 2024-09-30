@@ -1,13 +1,15 @@
 package com.hhplus.course.lecture.domain;
 
-import com.hhplus.course.user.UserId;
+import com.hhplus.course.user.domain.UserId;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import java.util.List;
 import static lombok.AccessLevel.PROTECTED;
 
 @Entity
+@Table(name = "lectures")
 @NoArgsConstructor(access = PROTECTED)
 @AllArgsConstructor
 @Builder
@@ -27,13 +30,8 @@ public class Lecture {
 
     @Getter
     @ElementCollection
+    @BatchSize(size = 30)
     private final List<UserId> studentIds = new ArrayList<>();
-
-    public static Lecture from(LocalDate lecturingDate) {
-        return Lecture.builder()
-                .lecturingDate(lecturingDate)
-                .build();
-    }
 
     public void join(UserId userId) {
         if (LocalDate.now().isAfter(lecturingDate)) {
@@ -46,6 +44,13 @@ public class Lecture {
             throw new IllegalStateException("중복 강좌를 수강할 수 없습니다.");
         }
         studentIds.add(userId);
+    }
+
+    public static Lecture from(String id, LocalDate lecturingDate) {
+        return Lecture.builder()
+                .id(LectureId.of(id))
+                .lecturingDate(lecturingDate)
+                .build();
     }
 
     public boolean hasUserOf(UserId userId) {

@@ -1,6 +1,6 @@
 package com.hhplus.course.lecture.domain;
 
-import com.hhplus.course.user.UserId;
+import com.hhplus.course.user.domain.UserId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,14 +15,14 @@ public class LectureTest {
 
     @BeforeEach
     void setUp() {
-        lecture = new Lecture(LectureId.of("1"), LocalDate.now().plusMonths(1));
+        lecture = new Lecture(LectureId.of("lecture1"), LocalDate.now().plusMonths(1));
     }
 
 
     @Test
     void 강의를_수강할수_있어야한다() throws Exception {
         //given
-        UserId userId = new UserId("1");
+        UserId userId = UserId.of("user1");
 
         //when
         lecture.join(userId);
@@ -35,13 +35,13 @@ public class LectureTest {
     void 강의의_수강생이30명이상이라면_수강실패한다() throws Exception {
         //given
         for (int i = 0; i < 30; i++) {
-            UserId userId = new UserId(String.valueOf(i));
+            UserId userId = UserId.of("user" + i);
             lecture.join(userId);
         }
 
         //when
         //then
-        assertThatThrownBy(() -> lecture.join(new UserId("31")))
+        assertThatThrownBy(() -> lecture.join(UserId.of("user31")))
                 .isInstanceOf(IllegalStateException.class)
                 .hasMessageContaining("30명의 수강생 이상이 신청했습니다.");
 
@@ -50,7 +50,7 @@ public class LectureTest {
     @Test
     void 강의의_수강생이중복됐다면_수강실패한다() throws Exception {
         //given
-        UserId userId = new UserId("1");
+        UserId userId = UserId.of("user1");
 
         //when
         lecture.join(userId);
@@ -65,8 +65,8 @@ public class LectureTest {
     @Test
     void 수강시점이_강좌일을지났다면_수강실패한다() throws Exception {
         //given
-        lecture = Lecture.from(LocalDate.now().minusDays(1));
-        UserId userId = new UserId("1");
+        lecture = Lecture.from("lecture1", LocalDate.now().minusDays(1));
+        UserId userId = UserId.of("user1");
 
         //when
 
@@ -78,9 +78,9 @@ public class LectureTest {
     }
 
     @Test
-    void 유저가수강신청했다면_신청여부는_참이다() throws Exception {
+    void 유저가_수강신청했다면_신청여부는_참이다() throws Exception {
         //given
-        UserId userId = new UserId("1");
+        UserId userId = UserId.of("user1");
 
         //when
         lecture.join(userId);
@@ -92,9 +92,9 @@ public class LectureTest {
     }
 
     @Test
-    void 유저가수강신청하지않았다면_신청여부는_거짓이다() throws Exception {
+    void 유저가_수강신청하지않았다면_신청여부는_거짓이다() throws Exception {
         //given
-        UserId userId = new UserId("1");
+        UserId userId = UserId.of("user1");
 
         //when
         boolean hasUser = lecture.hasUserOf(userId);

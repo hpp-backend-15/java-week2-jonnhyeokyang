@@ -17,7 +17,7 @@ import static lombok.AccessLevel.PROTECTED;
 @NoArgsConstructor(access = PROTECTED)
 @AllArgsConstructor
 public class LectureId implements Serializable {
-    @Column(name = "lecture_id")
+    @Column(name = "lectures_id")
     String id;
 
     public static LectureId of(String id) {

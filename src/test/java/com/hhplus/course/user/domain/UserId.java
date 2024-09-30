@@ -1,12 +1,15 @@
-package com.hhplus.course.user;
+package com.hhplus.course.user.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-import static lombok.AccessLevel.*;
+import static lombok.AccessLevel.PROTECTED;
 
 @Embeddable
 @Getter
